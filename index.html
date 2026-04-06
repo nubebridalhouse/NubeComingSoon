@@ -457,20 +457,86 @@ footer::before{content:'';position:absolute;top:-1px;left:0;right:0;height:80px;
     <h2 class="waitlist-heading fade-up stagger-1">Join the Waitlist</h2>
     <p class="waitlist-sub fade-up stagger-2">Exclusive early access to our debut collection and private appointments.</p>
   </div>
-  <form class="waitlist-form" onsubmit="event.preventDefault();handleWaitlist()">
-    <div class="form-group fade-up"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
-    <div class="form-group fade-up stagger-1"><label>WhatsApp Number</label><input type="tel" placeholder="+92"></div>
-    <div class="form-row">
-      <div class="form-group fade-up stagger-2"><label>City</label><select><option value="">Select city</option><option>Lahore</option><option>Islamabad</option><option>Karachi</option><option>Other</option></select></div>
-      <div class="form-group fade-up stagger-2"><label>Wedding Date</label><input type="text" placeholder="Month / Year"></div>
+  <form
+  class="waitlist-form"
+  name="waitlist"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  action="/"
+>
+  <input type="hidden" name="form-name" value="waitlist">
+  <input type="hidden" name="bot-field">
+
+  <div class="form-group fade-up">
+    <label>Full Name</label>
+    <input type="text" name="full_name" placeholder="Your name" required>
+  </div>
+
+  <div class="form-group fade-up stagger-1">
+    <label>WhatsApp Number</label>
+    <input type="tel" name="whatsapp_number" placeholder="+92">
+  </div>
+
+  <div class="form-row">
+    <div class="form-group fade-up stagger-2">
+      <label>City</label>
+      <select name="city">
+        <option value="">Select city</option>
+        <option value="Lahore">Lahore</option>
+        <option value="Islamabad">Islamabad</option>
+        <option value="Karachi">Karachi</option>
+        <option value="Other">Other</option>
+      </select>
     </div>
-    <div class="form-row">
-      <div class="form-group fade-up stagger-3"><label>Event Type</label><select><option value="">Select event</option><option>Wedding</option><option>Engagement</option><option>Reception</option><option>Pre-Wedding Shoot</option><option>Proposal Shoot</option><option>Private Dinner</option><option>Bridal Shower</option><option>Other</option></select></div>
-      <div class="form-group fade-up stagger-3"><label>Budget Range</label><select><option value="">Select range</option><option>Under PKR 500K</option><option>PKR 500K – 1M</option><option>PKR 1M – 2M</option><option>PKR 2M+</option></select></div>
+
+    <div class="form-group fade-up stagger-2">
+      <label>Wedding Date</label>
+      <input type="text" name="wedding_date" placeholder="Month / Year">
     </div>
-    <div class="form-group fade-up stagger-4"><label>Style Preference</label><select><option value="">Select style</option><option>Minimalist &amp; Modern</option><option>Classic &amp; Timeless</option><option>Romantic &amp; Ethereal</option><option>Bold &amp; Sculptural</option></select></div>
-    <button type="submit" class="form-submit fade-up stagger-4">Join the Waitlist</button>
-  </form>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group fade-up stagger-3">
+      <label>Event Type</label>
+      <select name="event_type">
+        <option value="">Select event</option>
+        <option value="Wedding">Wedding</option>
+        <option value="Engagement">Engagement</option>
+        <option value="Reception">Reception</option>
+        <option value="Pre-Wedding Shoot">Pre-Wedding Shoot</option>
+        <option value="Proposal Shoot">Proposal Shoot</option>
+        <option value="Private Dinner">Private Dinner</option>
+        <option value="Bridal Shower">Bridal Shower</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group fade-up stagger-3">
+      <label>Budget Range</label>
+      <select name="budget_range">
+        <option value="">Select range</option>
+        <option value="Under PKR 500K">Under PKR 500K</option>
+        <option value="PKR 500K - 1M">PKR 500K - 1M</option>
+        <option value="PKR 1M - 2M">PKR 1M - 2M</option>
+        <option value="PKR 2M+">PKR 2M+</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group fade-up stagger-4">
+    <label>Style Preference</label>
+    <select name="style_preference">
+      <option value="">Select style</option>
+      <option value="Minimalist & Modern">Minimalist & Modern</option>
+      <option value="Classic & Timeless">Classic & Timeless</option>
+      <option value="Romantic & Ethereal">Romantic & Ethereal</option>
+      <option value="Bold & Sculptural">Bold & Sculptural</option>
+    </select>
+  </div>
+
+  <button type="submit" class="form-submit fade-up stagger-4">Join the Waitlist</button>
+</form>
 </section>
 
 <!-- ════════════ FOOTER ════════════ -->
