@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NUBE Bridal House — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#FFFFFF;--champagne:#E7DED2;--taupe:#9C775B;--espresso:#422B1C;
+  --gold:#b8965a;--gold-light:#d4b47a;--gold-dark:#8a6d3b;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',Helvetica,sans-serif;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--sans);color:var(--espresso);background:var(--champagne);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ═══ SCROLL ═══ */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--taupe);z-index:9999;width:0;transition:width .1s linear}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,backdrop-filter .4s}
+nav.scrolled{background:rgba(231,222,210,.9);backdrop-filter:blur(16px)}
+.nav-logo{height:96px;opacity:.9;transition:opacity .3s}
+.nav-logo:hover{opacity:1}
+.nav-right{display:flex;align-items:center;gap:28px}
+.nav-link{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:var(--espresso);background:var(--champagne);border:1.5px solid var(--taupe);padding:11px 24px;transition:all .3s}
+.nav-link:hover{background:var(--taupe);color:var(--white);border-color:var(--taupe)}
+.nav-cta{font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;color:var(--white);background:var(--espresso);padding:12px 28px;transition:background .3s}
+.nav-cta:hover{background:var(--taupe)}
+
+/* ═══ HERO — LOGO + 3-IMAGE COLLAGE ═══ */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:100px 60px 80px;background:var(--champagne);position:relative}
+.hero-logo{width:clamp(320px,42vw,580px);height:auto;margin-bottom:28px;filter:drop-shadow(0 2px 40px rgba(156,119,91,.08))}
+.hero-coming{font-family:var(--serif);font-size:clamp(36px,4vw,64px);font-weight:400;font-style:italic;color:var(--espresso);letter-spacing:1px;margin-bottom:20px}
+.hero-tagline{font-family:var(--sans);font-size:12px;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:var(--taupe)}
+
+/* Hero right: 3-photo editorial collage */
+.hero-collage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;height:100%}
+.hero-collage .hc-1{grid-column:1/2;grid-row:1/3} /* tall left */
+.hero-collage .hc-2{grid-column:2/3;grid-row:1/2} /* top right */
+.hero-collage .hc-3{grid-column:2/3;grid-row:2/3} /* bottom right */
+.hero-collage img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.06) brightness(.98)}
+
+/* ═══ DIVIDERS ═══ */
+.arch-divider{width:100%;overflow:hidden;line-height:0;background:var(--champagne)}
+.arch-divider svg{display:block;width:100%}
+.arch-divider-up{width:100%;overflow:hidden;line-height:0;background:var(--white)}
+.arch-divider-up svg{display:block;width:100%}
+
+/* ═══ STATEMENT ═══ */
+.statement{background:var(--white);padding:clamp(80px,12vw,180px) clamp(40px,8vw,160px);position:relative;overflow:hidden}
+.statement-text{font-family:var(--serif);font-size:clamp(32px,5vw,80px);font-weight:300;line-height:1.15;color:var(--espresso);max-width:900px;letter-spacing:-.5px}
+.statement-text em{font-style:italic;color:var(--taupe)}
+.statement-line{width:80px;height:1px;background:var(--taupe);margin-top:48px;opacity:.5}
+
+/* ═══ EDITORIAL STRIP — clean 3-image row ═══ */
+.editorial-strip{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:4px;padding:4px;background:var(--champagne)}
+.editorial-strip .es-cell{overflow:hidden;min-height:60vh}
+.editorial-strip img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.06) brightness(.98);transition:transform .6s}
+.editorial-strip .es-cell:hover img{transform:scale(1.03)}
+
+/* ═══ BRAND ═══ */
+.brand{display:grid;grid-template-columns:1fr 1.2fr;min-height:80vh;overflow:hidden}
+.brand-image{position:relative;overflow:hidden}
+.brand-image img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.06) brightness(.98)}
+.brand-content{display:flex;flex-direction:column;justify-content:center;padding:clamp(60px,8vw,140px);background:var(--white);position:relative}
+.section-label{font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:5px;text-transform:uppercase;color:var(--taupe);margin-bottom:24px;display:block}
+.brand-heading{font-family:var(--serif);font-size:clamp(36px,4.5vw,72px);font-weight:300;line-height:1.1;color:var(--espresso);margin-bottom:32px;letter-spacing:-.3px}
+.brand-body{font-family:var(--sans);font-size:14px;font-weight:300;line-height:1.9;color:var(--taupe);max-width:440px}
+
+/* ═══ COLLECTION ═══ */
+.collection{background:var(--espresso);color:var(--white);padding:clamp(100px,14vw,220px) clamp(40px,8vw,120px);position:relative;overflow:hidden;text-align:center}
+.collection-heading{font-family:var(--serif);font-size:clamp(48px,8vw,140px);font-weight:300;line-height:1;letter-spacing:-2px;margin-bottom:24px;opacity:.95}
+.collection-sub{font-family:var(--sans);font-size:12px;font-weight:200;letter-spacing:5px;text-transform:uppercase;opacity:.6}
+.vault-lines{position:absolute;inset:0;pointer-events:none;opacity:.1}
+.vault-lines svg{width:100%;height:100%}
+
+/* ═══ MATERIALS ═══ */
+.materials{display:grid;grid-template-columns:1.3fr 1fr;min-height:70vh;overflow:hidden}
+.materials-visual{position:relative;overflow:hidden}
+.materials-visual img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.06) brightness(.98)}
+.ceiling-svg{position:absolute;inset:0;pointer-events:none;z-index:2}
+.ceiling-svg svg{width:100%;height:100%}
+.materials-content{display:flex;flex-direction:column;justify-content:center;padding:clamp(60px,8vw,120px);background:var(--champagne)}
+.materials-heading{font-family:var(--serif);font-size:clamp(32px,3.5vw,56px);font-weight:300;line-height:1.15;color:var(--espresso);margin-bottom:28px}
+.materials-body{font-family:var(--sans);font-size:14px;font-weight:300;line-height:1.9;color:var(--taupe);max-width:420px}
+
+/* ═══ EXPERIENCE ═══ */
+.experience{background:var(--white);padding:clamp(80px,12vw,180px) clamp(40px,8vw,120px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);align-items:center}
+.experience-heading{font-family:var(--serif);font-size:clamp(40px,5vw,80px);font-weight:300;line-height:1.1;color:var(--espresso)}
+.experience-right{display:flex;flex-direction:column;gap:40px}
+.exp-item{border-top:1px solid rgba(156,119,91,.2);padding-top:24px}
+.exp-city{font-family:var(--serif);font-size:clamp(22px,2vw,32px);font-weight:400;color:var(--espresso);margin-bottom:8px}
+.exp-desc{font-family:var(--sans);font-size:13px;font-weight:300;line-height:1.8;color:var(--taupe)}
+
+/* ═══════════════════════════════════════
+   FASHION LIBRARY — ANTIQUE GALLERY WALL
+   Inspired by warm European salon aesthetic:
+   ornate baroque frames, warm cream wall,
+   candlelight glow, asymmetric arrangement
+   ═══════════════════════════════════════ */
+.library{position:relative;overflow:hidden}
+.library-wall{
+  position:relative;
+  min-height:100vh;
+  /* Warm plaster wall */
+  background:
+    radial-gradient(ellipse 60% 50% at 25% 25%,rgba(220,195,160,.3) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 75% 65%,rgba(200,170,130,.2) 0%,transparent 50%),
+    linear-gradient(178deg,#e8ddd0 0%,#ddd0c0 30%,#d5c7b5 70%,#c9b9a5 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(80px,10vw,140px) clamp(20px,4vw,60px);
+}
+
+/* Gallery grid — asymmetric salon arrangement */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:1fr 1.3fr 1fr 0.8fr 1.1fr;
+  grid-template-rows:auto auto;
+  gap:24px 20px;
+  max-width:960px;
+  width:100%;
+  margin-bottom:56px;
+  align-items:center;
+  justify-items:center;
+}
+
+/* Ornate frame */
+.ornate-frame{
+  overflow:hidden;position:relative;
+  /* Heavy baroque border simulation */
+  border:4px solid var(--gold);
+  outline:2px solid var(--gold-dark);
+  outline-offset:3px;
+  box-shadow:
+    inset 0 0 0 2px rgba(184,150,90,.25),
+    inset 0 0 8px rgba(0,0,0,.15),
+    0 6px 20px rgba(0,0,0,.2),
+    0 2px 6px rgba(0,0,0,.15);
+  background:#2a2018;
+}
+.ornate-frame img{
+  width:100%;height:100%;object-fit:cover;
+  filter:sepia(.25) contrast(.92) brightness(.88) saturate(.75);
+  transition:filter .6s;
+}
+.ornate-frame:hover img{filter:sepia(.12) contrast(.95) brightness(.92) saturate(.8)}
+
+/* Frame shape variants */
+.frame-oval{border-radius:50%}
+.frame-oval img{border-radius:50%}
+.frame-arch{border-radius:50% 50% 4px 4px / 25% 25% 4px 4px}
+.frame-arch img{border-radius:50% 50% 0 0 / 25% 25% 0 0}
+
+/* Individual frame sizes & grid placement */
+.gf-1{grid-column:1;grid-row:1;width:100%;aspect-ratio:3/4}
+.gf-2{grid-column:2;grid-row:1/3;width:100%;aspect-ratio:3/4}
+.gf-3{grid-column:3;grid-row:1;width:85%;aspect-ratio:1/1}
+.gf-4{grid-column:4;grid-row:1;width:100%;aspect-ratio:3/4}
+.gf-5{grid-column:5;grid-row:1/3;width:100%;aspect-ratio:4/5}
+.gf-6{grid-column:1/2;grid-row:2;width:80%;aspect-ratio:4/3}
+.gf-7{grid-column:3/5;grid-row:2;width:70%;aspect-ratio:5/4;justify-self:center}
+
+/* Warm light effects */
+.library-wall::before{
+  content:'';position:absolute;top:15%;left:8%;width:180px;height:240px;
+  background:radial-gradient(ellipse at center bottom,rgba(255,200,100,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.library-wall::after{
+  content:'';position:absolute;top:15%;right:8%;width:180px;height:240px;
+  background:radial-gradient(ellipse at center bottom,rgba(255,200,100,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.library-text{text-align:center;position:relative;z-index:2}
+.library-label{font-family:var(--sans);font-size:10px;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--taupe);margin-bottom:20px;display:block}
+.library-heading{font-family:var(--serif);font-size:clamp(36px,5vw,72px);font-weight:300;font-style:italic;color:var(--espresso);line-height:1.15;margin-bottom:12px}
+.library-sub{font-family:var(--sans);font-size:12px;font-weight:200;letter-spacing:3px;text-transform:uppercase;color:var(--taupe);opacity:.7}
+
+/* ═══ MOMENTS — 4-image strip ═══ */
+.moments{background:var(--champagne);padding:clamp(80px,10vw,160px) clamp(40px,6vw,80px)}
+.moments-top{text-align:center;margin-bottom:clamp(48px,6vw,80px)}
+.moments-heading{font-family:var(--serif);font-size:clamp(36px,4vw,64px);font-weight:300;color:var(--espresso)}
+.moments-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.moments-cell{aspect-ratio:3/4;overflow:hidden;position:relative}
+.moments-cell img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(1.06) brightness(.98);transition:transform .6s}
+.moments-cell:hover img{transform:scale(1.04)}
+
+/* ═══ WAITLIST ═══ */
+.waitlist{background:var(--white);padding:clamp(80px,10vw,160px) clamp(40px,8vw,120px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);align-items:start}
+.waitlist-left{position:sticky;top:120px}
+.waitlist-heading{font-family:var(--serif);font-size:clamp(36px,4vw,64px);font-weight:300;line-height:1.15;color:var(--espresso);margin-bottom:20px}
+.waitlist-sub{font-family:var(--sans);font-size:14px;font-weight:300;line-height:1.8;color:var(--taupe)}
+.waitlist-form{display:flex;flex-direction:column;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--taupe)}
+.form-group input,.form-group select{font-family:var(--sans);font-size:14px;font-weight:300;padding:14px 0;border:none;border-bottom:1px solid rgba(156,119,91,.25);background:transparent;color:var(--espresso);outline:none;transition:border-color .3s}
+.form-group input:focus,.form-group select:focus{border-color:var(--taupe)}
+.form-group input::placeholder{color:rgba(156,119,91,.4)}
+.form-group select{-webkit-appearance:none;appearance:none;cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-submit{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--white);background:var(--espresso);padding:18px 40px;margin-top:12px;transition:background .3s;width:fit-content}
+.form-submit:hover{background:var(--taupe)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--espresso);color:var(--white);padding:clamp(100px,12vw,180px) clamp(40px,8vw,120px) 48px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:-1px;left:0;right:0;height:80px;background:var(--champagne);clip-path:ellipse(52% 100% at 50% 0%)}
+.footer-logo{width:clamp(360px,45vw,620px);margin:0 auto 56px;display:block;filter:brightness(0) invert(1);opacity:.85}
+.footer-tagline{text-align:center;font-family:var(--serif);font-size:clamp(20px,2.4vw,32px);font-weight:300;font-style:italic;opacity:.5;margin-bottom:72px}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;max-width:800px;margin:0 auto 72px}
+.footer-col h4{font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:4px;text-transform:uppercase;opacity:.4;margin-bottom:16px}
+.footer-col p,.footer-col a{font-family:var(--sans);font-size:13px;font-weight:300;line-height:2;opacity:.6;display:block;transition:opacity .3s}
+.footer-col a:hover{opacity:1}
+.footer-bottom{text-align:center;border-top:1px solid rgba(255,255,255,.08);padding-top:32px}
+.footer-bottom p{font-family:var(--sans);font-size:11px;font-weight:300;opacity:.3;letter-spacing:1px}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(66,43,28,.7);backdrop-filter:blur(8px);z-index:200;display:none;justify-content:center;align-items:center;padding:40px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--white);max-width:520px;width:100%;padding:56px 48px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:20px;right:20px;font-size:24px;color:var(--taupe);cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;transition:color .3s}
+.modal-close:hover{color:var(--espresso)}
+.modal h2{font-family:var(--serif);font-size:28px;font-weight:300;color:var(--espresso);margin-bottom:8px}
+.modal p{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--taupe);margin-bottom:32px;line-height:1.7}
+.modal .form-submit{width:100%;text-align:center}
+
+/* ═══ ANIMATIONS ═══ */
+.fade-up{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-in{opacity:0;transition:opacity 1s ease}
+.fade-in.visible{opacity:1}
+.stagger-1{transition-delay:.1s}
+.stagger-2{transition-delay:.2s}
+.stagger-3{transition-delay:.3s}
+.stagger-4{transition-delay:.4s}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr}
+  .hero-left{min-height:55vh}
+  .hero-collage{min-height:50vh}
+  .brand{grid-template-columns:1fr}
+  .brand-image{min-height:50vh}
+  .materials{grid-template-columns:1fr}
+  .materials-visual{min-height:50vh}
+  .experience{grid-template-columns:1fr;gap:48px}
+  .waitlist{grid-template-columns:1fr}
+  .waitlist-left{position:static}
+  .editorial-strip{grid-template-columns:1fr 1fr}
+  .editorial-strip .es-cell:last-child{display:none}
+  .gallery-grid{grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .gf-1,.gf-2,.gf-3,.gf-4,.gf-5,.gf-6,.gf-7{grid-column:auto;grid-row:auto;width:100%}
+  .gf-6,.gf-7{display:none}
+}
+@media(max-width:768px){
+  nav{padding:20px 24px}
+  .nav-logo{height:72px}
+  .nav-right{gap:16px}
+  .nav-link{display:none}
+  .hero-logo{width:clamp(240px,65vw,380px)}
+  .hero-collage{grid-template-columns:1fr;grid-template-rows:auto}
+  .hero-collage .hc-1{grid-column:auto;grid-row:auto}
+  .hero-collage .hc-2,.hero-collage .hc-3{display:none}
+  .editorial-strip{grid-template-columns:1fr}
+  .editorial-strip .es-cell:nth-child(3){display:none}
+  .footer-grid{grid-template-columns:1fr;text-align:center;gap:32px}
+  .form-row{grid-template-columns:1fr}
+  .moments-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;gap:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Navigation -->
+<nav id="nav">
+  <img src="logo-transparent.svg" alt="NUBE" class="nav-logo">
+  <div class="nav-right">
+    <a href="#waitlist" class="nav-link">Join Waitlist</a>
+    <button class="nav-cta" onclick="openModal()">Request Appointment</button>
+  </div>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <div class="hero-left">
+    <img src="logo-transparent.svg" alt="NUBE Bridal House" class="hero-logo fade-up">
+    <span class="hero-coming fade-up stagger-1">Coming Soon</span>
+    <span class="hero-tagline fade-up stagger-2">Lahore &nbsp;&middot;&nbsp; Islamabad</span>
+  </div>
+  <div class="hero-collage">
+    <div class="hc-1"><img src="img-bride-ballgown.jpg" alt="Bridal editorial"></div>
+    <div class="hc-2"><img src="img-dress-buttons.jpg" alt="Gown detail"></div>
+    <div class="hc-3"><img src="img-bride-joy.jpg" alt="Bridal portrait"></div>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="arch-divider">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+    <path d="M0 0 L1440 0 L1440 20 Q1080 80 720 60 Q360 40 0 80 Z" fill="var(--white)"/>
+  </svg>
+</div>
+
+<!-- ════════════ STATEMENT ════════════ -->
+<section class="statement">
+  <p class="statement-text fade-up">
+    We don't sell dresses.<br>We present <em>identity, presence,</em> and <em>story.</em>
+  </p>
+  <div class="statement-line fade-up stagger-1"></div>
+</section>
+
+<!-- Divider -->
+<div class="arch-divider-up">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+    <path d="M0 0 L1440 0 L1440 60 Q720 0 0 60 Z" fill="var(--champagne)"/>
+  </svg>
+</div>
+
+<!-- ════════════ EDITORIAL STRIP ════════════ -->
+<section class="editorial-strip">
+  <div class="es-cell"><img src="img-bride-window.jpg" alt="Bridal portrait"></div>
+  <div class="es-cell"><img src="img-bride-bridge.jpg" alt="Bridal editorial"></div>
+  <div class="es-cell"><img src="img-bride-staircase.jpg" alt="Bridal portrait"></div>
+</section>
+
+<!-- ════════════ BRAND ════════════ -->
+<section class="brand">
+  <div class="brand-image">
+    <img src="img-bride-seated.jpg" alt="NUBE Bride">
+  </div>
+  <div class="brand-content">
+    <span class="section-label fade-up">The Brand</span>
+    <h2 class="brand-heading fade-up stagger-1">Intentional.<br>Editorial.<br>Timeless.</h2>
+    <p class="brand-body fade-up stagger-2">NUBE Bridal House redefines how brides experience, select, and feel in their wedding attire. Every gown in our collection is chosen to embody quiet confidence and enduring elegance.</p>
+  </div>
+</section>
+
+<!-- ════════════ COLLECTION ════════════ -->
+<section class="collection">
+  <div class="vault-lines">
+    <svg viewBox="0 0 1000 600" preserveAspectRatio="none">
+      <path d="M0 600 Q250 100 500 200 Q750 300 1000 0" fill="none" stroke="white" stroke-width="1"/>
+      <path d="M0 500 Q250 50 500 150 Q750 250 1000 0" fill="none" stroke="white" stroke-width=".8"/>
+      <path d="M0 400 Q250 0 500 100 Q750 200 1000 0" fill="none" stroke="white" stroke-width=".6"/>
+      <path d="M100 600 Q350 150 600 250 Q850 350 1000 100" fill="none" stroke="white" stroke-width=".5"/>
+    </svg>
+  </div>
+  <span class="section-label fade-up" style="color:rgba(255,255,255,.4)">Preview</span>
+  <h2 class="collection-heading fade-up stagger-1">The Collection</h2>
+  <p class="collection-sub fade-up stagger-2">Curated silhouettes revealed at launch</p>
+</section>
+
+<!-- ════════════ MATERIALS ════════════ -->
+<section class="materials">
+  <div class="materials-visual">
+    <img src="img-flowers-detail.jpg" alt="Fabric detail">
+    <div class="ceiling-svg">
+      <svg viewBox="0 0 600 600" preserveAspectRatio="none">
+        <path d="M200 600 L200 250 Q200 100 300 100 Q400 100 400 250 L400 600" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2"/>
+        <path d="M220 600 L220 270 Q220 130 300 130 Q380 130 380 270 L380 600" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+  <div class="materials-content">
+    <span class="section-label fade-up">Craftsmanship</span>
+    <h2 class="materials-heading fade-up stagger-1">Silk, Lace &amp; Legacy</h2>
+    <p class="materials-body fade-up stagger-2">Hand-selected fabrics from the finest European ateliers. Each textile carries a lineage of artistry — woven to drape, sculpt, and move with intention.</p>
+  </div>
+</section>
+
+<!-- ════════════ EXPERIENCE ════════════ -->
+<section class="experience">
+  <div>
+    <span class="section-label fade-up">The Experience</span>
+    <h2 class="experience-heading fade-up stagger-1">By Appointment Only</h2>
+  </div>
+  <div class="experience-right">
+    <div class="exp-item fade-up stagger-1">
+      <h3 class="exp-city">Lahore</h3>
+      <p class="exp-desc">A private atelier where each appointment is an intimate, unhurried experience — tailored entirely to you.</p>
+    </div>
+    <div class="exp-item fade-up stagger-2">
+      <h3 class="exp-city">Islamabad</h3>
+      <p class="exp-desc">Opening soon. An architectural sanctuary designed to mirror the same intentional beauty of every gown we carry.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FASHION LIBRARY — ANTIQUE GALLERY WALL ════════════ -->
+<section class="library">
+  <div class="library-wall">
+    <div class="gallery-grid fade-in">
+      <!-- Row 1 -->
+      <div class="ornate-frame gf-1 frame-arch">
+        <img src="img-bride-lace.jpg" alt="">
+      </div>
+      <div class="ornate-frame gf-2">
+        <img src="img-bride-tulle.jpg" alt="">
+      </div>
+      <div class="ornate-frame gf-3 frame-oval">
+        <img src="img-pearls-closeup.jpg" alt="">
+      </div>
+      <div class="ornate-frame gf-4 frame-arch">
+        <img src="img-bouquet-cascade.jpg" alt="">
+      </div>
+      <div class="ornate-frame gf-5">
+        <img src="img-bride-crown.jpg" alt="">
+      </div>
+      <!-- Row 2 -->
+      <div class="ornate-frame gf-6">
+        <img src="img-shoes-detail.jpg" alt="">
+      </div>
+      <div class="ornate-frame gf-7 frame-oval">
+        <img src="img-bouquet-car.jpg" alt="">
+      </div>
+    </div>
+
+    <div class="library-text">
+      <span class="library-label fade-up">Coming Soon</span>
+      <h2 class="library-heading fade-up stagger-1">The Fashion Library</h2>
+      <p class="library-sub fade-up stagger-2">A living archive of bridal culture</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ MOMENTS ════════════ -->
+<section class="moments">
+  <div class="moments-top">
+    <span class="section-label fade-up">Editorial</span>
+    <h2 class="moments-heading fade-up stagger-1">Captured Moments</h2>
+  </div>
+  <div class="moments-grid">
+    <div class="moments-cell fade-in"><img src="img-bride-minimal.jpg" alt=""></div>
+    <div class="moments-cell fade-in stagger-1"><img src="img-bride-car.jpg" alt=""></div>
+    <div class="moments-cell fade-in stagger-2"><img src="img-bride-silhouette.jpg" alt=""></div>
+    <div class="moments-cell fade-in stagger-3"><img src="img-bride-laughter.jpg" alt=""></div>
+  </div>
+</section>
+
+<!-- ════════════ WAITLIST ════════════ -->
+<section class="waitlist" id="waitlist">
+  <div class="waitlist-left">
+    <span class="section-label fade-up">Be First</span>
+    <h2 class="waitlist-heading fade-up stagger-1">Join the Waitlist</h2>
+    <p class="waitlist-sub fade-up stagger-2">Exclusive early access to our debut collection and private appointments.</p>
+  </div>
+  <form class="waitlist-form" onsubmit="event.preventDefault();handleWaitlist()">
+    <div class="form-group fade-up"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
+    <div class="form-group fade-up stagger-1"><label>WhatsApp Number</label><input type="tel" placeholder="+92"></div>
+    <div class="form-row">
+      <div class="form-group fade-up stagger-2"><label>City</label><select><option value="">Select city</option><option>Lahore</option><option>Islamabad</option><option>Karachi</option><option>Other</option></select></div>
+      <div class="form-group fade-up stagger-2"><label>Wedding Date</label><input type="text" placeholder="Month / Year"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group fade-up stagger-3"><label>Event Type</label><select><option value="">Select event</option><option>Wedding</option><option>Engagement</option><option>Reception</option><option>Pre-Wedding Shoot</option><option>Proposal Shoot</option><option>Private Dinner</option><option>Bridal Shower</option><option>Other</option></select></div>
+      <div class="form-group fade-up stagger-3"><label>Budget Range</label><select><option value="">Select range</option><option>Under PKR 500K</option><option>PKR 500K – 1M</option><option>PKR 1M – 2M</option><option>PKR 2M+</option></select></div>
+    </div>
+    <div class="form-group fade-up stagger-4"><label>Style Preference</label><select><option value="">Select style</option><option>Minimalist &amp; Modern</option><option>Classic &amp; Timeless</option><option>Romantic &amp; Ethereal</option><option>Bold &amp; Sculptural</option></select></div>
+    <button type="submit" class="form-submit fade-up stagger-4">Join the Waitlist</button>
+  </form>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <img src="logo-transparent.svg" alt="NUBE Bridal House" class="footer-logo">
+  <p class="footer-tagline">Where every gown tells a story</p>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Locations</h4>
+      <p>Lahore</p>
+      <p>Islamabad</p>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#">Instagram</a>
+      <a href="#">WhatsApp</a>
+      <a href="#">Pinterest</a>
+    </div>
+    <div class="footer-col">
+      <h4>Enquiries</h4>
+      <a href="mailto:hello@nubebridal.com">hello@nubebridal.com</a>
+      <a href="#">Request Appointment</a>
+      <a href="#waitlist">Join Waitlist</a>
+    </div>
+  </div>
+  <div style="text-align:center;margin-bottom:48px">
+    <p style="font-family:var(--sans);font-size:11px;font-weight:300;letter-spacing:2px;text-transform:uppercase;opacity:.3;margin-bottom:12px">By Appointment Only</p>
+    <p style="font-family:var(--sans);font-size:12px;font-weight:300;opacity:.4;line-height:1.8">Lahore &middot; Islamabad</p>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2026 NUBE Bridal House. All rights reserved.</p></div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="appointmentModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h2>Request an Appointment</h2>
+    <p>Our ateliers open by private appointment only. Share your details and we'll be in touch.</p>
+    <form class="waitlist-form" onsubmit="event.preventDefault();handleAppointment()">
+      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name" required></div>
+      <div class="form-group"><label>WhatsApp Number</label><input type="tel" placeholder="+92" required></div>
+      <div class="form-row">
+        <div class="form-group"><label>Preferred City</label><select><option value="">Select</option><option>Lahore</option><option>Islamabad</option></select></div>
+        <div class="form-group"><label>Event Type</label><select><option value="">Select</option><option>Wedding</option><option>Engagement</option><option>Reception</option><option>Pre-Wedding Shoot</option><option>Proposal Shoot</option><option>Private Dinner</option><option>Bridal Shower</option><option>Other</option></select></div>
+      </div>
+      <div class="form-group"><label>Preferred Date</label><input type="text" placeholder="DD / MM / YYYY"></div>
+      <button type="submit" class="form-submit" style="width:100%;text-align:center">Submit Request</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const prog=document.getElementById('scrollProgress');
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(window.scrollY/h*100)+'%';
+  nav.classList.toggle('scrolled',window.scrollY>60);
+});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up,.fade-in').forEach(el=>obs.observe(el));
+function openModal(){document.getElementById('appointmentModal').classList.add('active');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('appointmentModal').classList.remove('active');document.body.style.overflow=''}
+document.getElementById('appointmentModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal()});
+function handleWaitlist(){const b=document.querySelector('.waitlist .form-submit');b.textContent='Thank you — we\'ll be in touch';b.style.background='var(--taupe)';b.disabled=true}
+function handleAppointment(){const b=document.querySelector('.modal .form-submit');b.textContent='Request Submitted';b.style.background='var(--taupe)';b.disabled=true;setTimeout(closeModal,2000)}
+</script>
+</body>
+</html>
